@@ -1,0 +1,159 @@
+---
+title: "Atelier 4"
+author: "Justine Aubier"
+date: "05/11/2019"
+output: word_document
+---
+
+
+```{r}
+nutriage <- read.csv("C:/Users/JUSTINE/AppData/Local/Temp/nutriage_IOnRWw")
+names(nutriage)
+```
+
+# variable continue
+# distribution normal de tailles et poids
+# taille est normal? 
+
+```{r}
+mu_taille <-mean(nutriage$taille)
+sigma_taille <- sd (nutriage$taille)
+mu_taille 
+sigma_taille
+pnorm(0,mu_taille,sigma_taille)
+```
+
+#Taille=e^x>0 ou X~N(mu,sigma)
+#X=ln(taille)~N(mu,sigma)
+
+Taille $=e^X$ ou $X\sim N(\mu,\sigma)$ alors $X =\ln(text{Taille})) \sim N(\mu,\sigma)$
+
+```{r}
+x <- log(nutriage$taille)
+mu_x <- mean(x)
+sigma_x <- sd(x)
+mu_x
+sigma_x
+n <- length(x)
+n
+```
+# fr taille/ fr N(mu,sigma)
+# F(X)=P (X<=x) donc F^-1(taille)/F^-1(N(mu,sigma)
+
+```{r}
+z <- (x-mu_x)/sigma_x
+t_simul <- rnorm(n)
+qqplot(z,t_simul, xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type='l',col='red')
+```
+
+```{r}
+z<-rnorm(n)
+t_simul <- rnorm(n)
+qqplot(z,t_simul, xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type='l',col='red')
+```
+
+
+#le poids est normal?
+
+```{r}
+mu_poids <-mean(nutriage$poids)
+sigma_poids <- sd (nutriage$poids)
+mu_poids 
+sigma_poids
+pnorm(0,mu_poids,sigma_poids)
+```
+
+#Poids=e^x>0 ou X~N(mu,sigma)
+#X=ln(poids)~N(mu,sigma)
+
+Poids $=e^X$ ou $X\sim N(\mu,\sigma)$ alors $X =\ln(text{Taille})) \sim N(\mu,\sigma)$
+
+```{r}
+po <- log(nutriage$poids)
+mu_po <- mean(po)
+sigma_po <- sd(po)
+mu_po
+sigma_po
+n <- length(po)
+n
+```
+# fr poids/ fr N(mu,sigma)
+# F(X)=P (X<=po) donc F^-1(poids)/F^-1(N(mu,sigma)
+
+```{r}
+z <- (po-mu_po)/sigma_po
+t_simul <- rnorm(n)
+qqplot(z,t_simul, xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type='l',col='red')
+```
+
+```{r}
+z<-rnorm(n)
+t_simul <- rnorm(n)
+qqplot(z,t_simul, xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type='l',col='red',xlim=c(-3,3),ylim=c(-3,3))
+```
+
+```{r}
+po <- (nutriage$poids)
+mu_po <- mean(po)
+sigma_po <- sd(po)
+mu_po
+sigma_po
+n <- length(po)
+n
+z <- (po-mu_po)/sigma_po
+t_simul <- rnorm(n)
+qqplot(z,t_simul, xlim=c(-3,3),ylim=c(-3,3))
+par(new=T)
+plot(z,z,type='l',col='red')
+```
+
+#Simulation
+
+```{r}
+po <- log(nutriage$poids)
+mu_po <- mean(po)
+sigma_po <- sd(po)
+mu_po
+sigma_po
+n <- length(po)
+n
+simulation <- rnorm(1000,mu_po,sigma_po)
+poids_simul <- exp(simulation)
+hist(poids_simul)
+```
+
+#le modèle pour la variable Cafe variable discrète(test de poisson)
+
+```{r}
+table(nutriage$cafe)/n
+mean(nutriage$cafe)
+var(nutriage$cafe)
+lambda <- (mean(nutriage$cafe)+var(nutriage$cafe))/2
+lambda
+table(rpois(1000,lambda))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
